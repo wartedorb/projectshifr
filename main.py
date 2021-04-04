@@ -22,8 +22,6 @@ elif z == 'нет':
     print(
         'Шифр Цезаря — это вид шифра подстановки, в котором каждый символ в открытом тексте заменяется символом,\nнаходящимся на некотором постоянном числе позиций правее него в алфавите.\nНапример, в шифре со сдвигом на 3, А была бы заменена на Г, Б станет Д, и так далее.')
 
-
-
 print('\nВведите язык текста:\nРусский - 1\nАнглийский - 2')
 yazik = ['1', '2']
 vvod = input()
@@ -55,8 +53,17 @@ def shifrovka(txt, lang):
             print('Пожалуйста введите целое число')
             r = 0
         dlina = len(lang)
-        while step > dlina:
-            step -= dlina
+        if step < 0:
+            otric = True
+        else:
+            otric = False
+        modstep = abs(step)
+        while modstep > dlina:
+            modstep -= dlina
+        if otric == True:
+               step = (-1)*modstep
+        else:
+               step = modstep
         neizm = " ,.!?:;'1234567890{}[]@#$%^&*"
         out = ''
         for char in txt:
@@ -64,7 +71,6 @@ def shifrovka(txt, lang):
                 y = lang.index(char) + step
                 while y >= dlina:
                     y -= dlina
-
                 out += lang[y]
             else:
                 out += char
